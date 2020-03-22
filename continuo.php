@@ -46,8 +46,9 @@ while ($mom > $entrada->caps[$i]->ini && $i < $numcaps) {
 }
 
 
-$res->info .= 'Track ' . $entrada->caps[$i - 1]->cap . '/' . $numcaps . ': ' . $entrada->caps[$i - 1]->tit . '<br>';
-$res->info .= '<br><b><u>' . $result[1] . '</u><br>' . $result[2] . '</b><br><br>';
+$res->info .= 'Track ' . $entrada->caps[$i - 1]->cap . '/' . $numcaps . '<br>';
+$res->info .= '<b><u>' . $result[1] . '</u><br>' . $result[2] . '</b><br>';
+$res->info .= '<b>' .$entrada->caps[$i - 1]->tit . '</b><br><br>';
 $res->info .= $formato[1] . ', ' . $formato[2] . '<br>';
 $res->info .= $formato[3] . ', ' . $formato[4] . '<br>';
 $res->info .= $formato[5] . '<hr>';

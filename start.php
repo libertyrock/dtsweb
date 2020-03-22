@@ -6,6 +6,7 @@ $name=$_POST["id"];
 $file=$path.$name;
 $orden='mpv --input-file=tubo --no-video --audio-device alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "'.$file.'" 1> out 2>&1 &';
 shell_exec($orden);
+
 $orden='ffmpeg -i "'.$file.'" -f ffmetadata 2>&1';
 $salida=shell_exec($orden);
 

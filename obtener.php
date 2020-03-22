@@ -1,3 +1,5 @@
 <?php
-$entrada=json_decode(file_get_contents("playing"));
-echo $entrada->name;
+echo file_get_contents("playing");
+//$res.name
+//$res.stream
+//$res.caps cap,ini,fin,tit

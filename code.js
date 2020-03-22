@@ -112,13 +112,13 @@ function continuo() {
             // Perform operation on the return value
             var jdatos = JSON.parse(response);
             if (jdatos.pausa) {
-                $("#slide").removeClass("w3-light-green");
-                $("#slide").addClass("w3-grey");
+                $("#slide").removeClass("w3-light-blue");
+                $("#slide").addClass("w3-dark-grey");
                 $("#slide").addClass("blink_text");
             } else {
                 $("#slide").removeClass("blink_text");
-                $("#slide").removeClass("w3-grey");
-                $("#slide").addClass("w3-light-green");
+                $("#slide").removeClass("w3-dark-grey");
+                $("#slide").addClass("w3-light-blue");
             }
             $('#continuo').html(jdatos.info);
             $("#slide").width(jdatos.porcien);
@@ -130,7 +130,16 @@ function continuo() {
 
 function getNomfile_playing() {
     sndsvr("obtener.php", null, function (response) {
-        nomfile_playing = response;
+        var jdatos = JSON.parse(response);
+        nomfile_playing = jdatos.name;
+        var slen=jdatos.caps.length;
+        var fin=jdatos.caps[slen-1].fin;
+        var shtml="";
+        for (let i = 0; i < slen; i++) {
+            var porc=jdatos.caps[i].ini*100/fin;
+            shtml+="<span class=\"w3-text-blue\" style=\"position: fixed; left: -5px; right: 0; padding-left: "+porc+"%; \">|</span>";
+        }
+        $("#marcas").html(shtml);
     });
 }
 
@@ -138,7 +147,9 @@ function play(id) {
     closeSidebar();
     nomfile = id.textContent.trim();
     var params = { id: nomfile };
-    sndsvr('start.php', params, null);
+    sndsvr('start.php', params, function(){
+        getNomfile_playing();
+    });
 }
 
 // **************************************
