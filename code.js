@@ -157,9 +157,8 @@ function play(id) {
 // **************************************
 $(document).ready(function () {
     getNomfile_playing();
-    closeSidebar();
-    eventos();
+    continuo();
     cargar_click();
-    $('#continuo').html("Loading info...");
+    eventos();
     siestado = setInterval(continuo, 1000);
 });

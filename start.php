@@ -26,8 +26,7 @@ foreach ($capitulos as $val) {
     ++$i;
 }
 
-file_put_contents("playing",json_encode($res));
-//echo json_encode($res);
 //$res.name
 //$res.stream
 //$res.caps cap,ini,fin,tit
+file_put_contents("playing",json_encode($res));
