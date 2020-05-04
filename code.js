@@ -1,5 +1,6 @@
 var siestado;
-var nomfile_playing = "";
+var nomFilePlaying = "";
+var jdatos;
 
 // **************************************
 // ************* Eventos ****************
@@ -12,10 +13,26 @@ function eventos() {
     $('#cargar').click(cargar_click);
     $('#pause').click(pause_click);
     $('#stop').click(stop_click);
+    $('#btrack').click(btrack_click);
+    $("#sliderm").change(sliderm_change);
+}
+
+function sliderm_change() {
+    desactiva_continuo();
+    var valor = $("#sliderm").val();
+    var params = { id: nomFilePlaying, cap: 'null', start: valor };
+    sndsvr('start.php', params, function () {
+        activa_continuo();
+    });
+
+}
+
+function btrack_click() {
+    $("#ctracks").show();
 }
 
 function start_click() {
-    var params = { id: nomfile_playing };
+    var params = { id: nomFilePlaying, cap: 1, start: 'null' };
     sndsvr('start.php', params, null);
 }
 
@@ -34,6 +51,7 @@ function cargar_click() {
         var jdatos = JSON.parse(response);
         $("#filelist").html(jdatos.lista);
         $("#cuenta").html("Total: " + jdatos.count);
+        $("#myInput").val("");
         $("#myInput").focus();
     });
 }
@@ -105,60 +123,92 @@ function closeSidebar() {
     // document.getElementById("pie").style.display = "block";
     $("#mySidebar").hide();
     $("#mibar").show();
+    $("#ctracks").hide();
 }
 
 function continuo() {
-    sndsvr('continuo.php',null, function (response) {
-            // Perform operation on the return value
-            var jdatos = JSON.parse(response);
-            if (jdatos.pausa) {
-                $("#slide").removeClass("w3-light-blue");
-                $("#slide").addClass("w3-dark-grey");
-                $("#slide").addClass("blink_text");
-            } else {
-                $("#slide").removeClass("blink_text");
-                $("#slide").removeClass("w3-dark-grey");
-                $("#slide").addClass("w3-light-blue");
-            }
-            $('#continuo').html(jdatos.info);
-            $("#slide").width(jdatos.porcien);
-            $("#slide").html(jdatos.porcien);
-            $('#dtini').html(jdatos.dtini);
-            $('#dtfin').html(jdatos.dtfin);
-        });
-}
-
-function getNomfile_playing() {
-    sndsvr("obtener.php", null, function (response) {
+    sndsvr('continuo.php', null, function (response) {
+        // Perform operation on the return value
         var jdatos = JSON.parse(response);
-        nomfile_playing = jdatos.name;
-        var slen=jdatos.caps.length;
-        var fin=jdatos.caps[slen-1].fin;
-        var shtml="";
-        for (let i = 0; i < slen; i++) {
-            var porc=jdatos.caps[i].ini*100/fin;
-            shtml+="<span class=\"w3-text-blue\" style=\"position: fixed; left: -5px; right: 0; padding-left: "+porc+"%; \">|</span>";
+        if (jdatos.pausa) {
+            $("#slide").removeClass("w3-light-blue");
+            $("#slide").addClass("w3-dark-grey");
+            $("#slide").addClass("blink_text");
+        } else {
+            $("#slide").removeClass("blink_text");
+            $("#slide").removeClass("w3-dark-grey");
+            $("#slide").addClass("w3-light-blue");
         }
-        $("#marcas").html(shtml);
+        $('#titcap').html(jdatos.titcap);
+        $("#slide").width(jdatos.porcien + '%');
+        $("#slide").html(Math.round(jdatos.porcien) + '%');
+        $("#slidec").width(jdatos.cporcien + '%');
+        $("#slidec").html(Math.round(jdatos.cporcien) + '%');
+        $("#sliderm").val(jdatos.porcien);
+        $('#dtini').html(jdatos.dtini);
+        $('#dtcap').html(jdatos.dtcap);
+        $('#dtfin').html(jdatos.dtfin);
     });
 }
 
-function play(id) {
-    closeSidebar();
-    nomfile = id.textContent.trim();
-    var params = { id: nomfile };
-    sndsvr('start.php', params, function(){
-        getNomfile_playing();
+function getInfoPlaying() {
+    sndsvr("obtener.php", null, function (response) {
+        jdatos = JSON.parse(response);
+        nomFilePlaying = jdatos.name;
+        var slen = jdatos.caps.length;
+        var fin = jdatos.caps[slen - 1].fin;
+        var html_marcas = "";
+        var html_caps = "";
+        var j = 0;
+        for (let i = 0; i < slen; i++) {
+            ++j;
+            //html_caps += '<li>' + jdatos.caps[i].tit + '</li>';
+            html_caps += '<li><a id=c' + j + ' onclick="playc(' + j + ');">' + j + ': ' + jdatos.caps[i].tit + '</a></li>';
+            var porc = jdatos.caps[i].ini * 100 / fin;
+            html_marcas += "<span class=\"w3-text-blue\" style=\"position: absolute; margin-left: -3px; left: " + porc + "%; \">|</span>";
+        }
+        $("#marcas").html(html_marcas);
+        var html_info = "";
+        html_info += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
+        html_info += jdatos.info0 + ',';
+        html_info += jdatos.info1 + '<br>';
+        html_info += jdatos.info2 + ',';
+        html_info += jdatos.info3 + '<br>';
+        html_info += jdatos.info4 + '<br>';
+        $("#infoname").html(html_info);
+        $("#tracks").html(html_caps);
+
     });
+}
+
+function playc(capitulo) {
+    document.getElementById('ctracks').style.display = 'none';
+    play(nomFilePlaying, capitulo);
+}
+
+function play(nomfile, capitulo) {
+    closeSidebar();
+    var params = { id: nomfile, cap: capitulo, start: 'null' };
+    sndsvr('start.php', params, function () {
+        getInfoPlaying();
+    });
+}
+
+function activa_continuo(){
+    siestado = setInterval(continuo, 1000);
+}
+
+function desactiva_continuo(){
+    clearInterval(siestado);
 }
 
 // **************************************
 // ************* Inicio *****************
 // **************************************
 $(document).ready(function () {
-    getNomfile_playing();
+    getInfoPlaying();
     continuo();
     cargar_click();
     eventos();
-    siestado = setInterval(continuo, 1000);
+    activa_continuo();
 });

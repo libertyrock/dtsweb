@@ -1,6 +1,6 @@
 <?php
 $cadena = exec("tail -2 out");
-$patron1 = '/(.*)A: (\d\d):(\d\d):(\d\d) \/ (.*) \((.*)\)/';
+$patron1 = '/(.*)A: (\d\d):(\d\d):(\d\d) \/ (\d\d):(\d\d):(\d\d) \((.*)\)/';
 preg_match($patron1, $cadena, $sustitucion1);
 
 $res->pausa = false;
@@ -8,56 +8,38 @@ if ($sustitucion1[1] != '') {
     $res->pausa = true;
 }
 
+$in = json_decode(file_get_contents('playing'));
+$numcaps = sizeof($in->caps);
+
 if (is_null($sustitucion1[0])) {
     $mom = 0;
     $res->dtini = '--:--:--';
     $res->dtfin = '--:--:--';
-    $res->porcien = '0%';
+    $res->dtcap = 'Total<br>Tracks: ' . $numcaps;
+    $res->titcap = '';
+    $res->cporcien = 0;
+    $res->porcien = 0;
 } else {
     $mom = $sustitucion1[2] * 3600 + $sustitucion1[3] * 60 + $sustitucion1[4];
     $res->dtini = $sustitucion1[2] . ':' . $sustitucion1[3] . ':' . $sustitucion1[4];
-    $res->dtfin = $sustitucion1[5];
-    $res->porcien = $sustitucion1[6];
+    $res->dtfin = $sustitucion1[5] . ':' . $sustitucion1[6] . ':' . $sustitucion1[7];
+    $res->porcien = $mom * 100 / $in->caps[$numcaps - 1]->fin; //$sustitucion1[6];
+
+    $i = 0;
+    while ($mom > $in->caps[$i]->ini && $i < $numcaps) {
+        ++$i;
+    }
+
+    $res->dtcap = 'Track ' . $in->caps[$i - 1]->cap . '/' . $numcaps . '<br>';
+    $res->titcap = '<b>' . $in->caps[$i - 1]->tit . '</b>';
+    $res->cporcien = ($mom - $in->caps[$i - 1]->ini) * 100 / ($in->caps[$i - 1]->fin - $in->caps[$i - 1]->ini);
 }
-
-
-
-// $patron2 = '/(Chapter: \(.*\).*)/';
-// $b = preg_match($patron2, $cadena, $sustitucion2);
-
-// // if ($b === 1) {
-// //     file_put_contents("chapter", "$sustitucion2[1]");
-// // }
-// // $chap = file_get_contents("chapter");
-
-// $chap = $sustitucion2[1];
-
-$entrada = json_decode(file_get_contents('playing'));
-$patron = '/([^-]*) - (.*)\.MKA/';
-preg_match($patron, $entrada->name, $result);
-$patron = '/(.*), (.*), (.*), (.*), (.*)/';
-preg_match($patron, $entrada->stream, $formato);
-
-$numcaps = sizeof($entrada->caps);
-
-$i = 0;
-while ($mom > $entrada->caps[$i]->ini && $i < $numcaps) {
-    ++$i;
-}
-
-
-$res->info .= 'Track ' . $entrada->caps[$i - 1]->cap . '/' . $numcaps . '<br>';
-$res->info .= '<b><u>' . $result[1] . '</u><br>' . $result[2] . '</b><br>';
-$res->info .= '<b>' .$entrada->caps[$i - 1]->tit . '</b><br><br>';
-$res->info .= $formato[1] . ', ' . $formato[2] . '<br>';
-$res->info .= $formato[3] . ', ' . $formato[4] . '<br>';
-$res->info .= $formato[5] . '<hr>';
-$res->info .= 'Temp: ' . shell_exec("awk '{printf(\"%.1f\",$1/1000)}' /etc/armbianmonitor/datasources/soctemp") . 'º';
 
 echo json_encode($res);
 //$res.pausa
-//$res.ini
 //$res.dtini
 //$res.dtfin
 //$res.porcien
-//$res.info
+//$res.dtcap
+//$res.titcap
+//$res.cporcien

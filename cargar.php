@@ -5,10 +5,11 @@ $gestor = @fopen('salida', 'r');
 if ($gestor) {
     $i=0;
 
-    $res->lista='<br><ul id="myUL">';
+    $res->lista='<br><ul id="myUL" class="myUL">';
     while (($bufer = fgets($gestor, 4096)) !== false) {
+        $bufer_limpio=addslashes(trim($bufer));
         ++$i;
-        $res->lista.='<li><a id=b'.$i.' onclick="play(b'.$i.');">'.$bufer.'</a></li>';
+        $res->lista.='<li><a id=b'.$i.' onclick="play(\''.$bufer_limpio.'\',1);">'.$bufer.'</a></li>';
     }
     $res->lista.='</ul>';
     $res->count=$i;

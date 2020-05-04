@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <header id="mibar" class="w3-top w3-bar">
+    <div id="mibar" class="w3-top w3-bar">
         <button class="w3-bar-item w3-button w3-xxlarge w3-blue w3-hover-theme" onclick="openSidebar()">&#9776;</button>
         <h1 class="w3-bar-item">DTS DVD</h1>
 
@@ -46,7 +46,7 @@
                     <button id=start class="w3-button w3-block w3-xlarge w3-red">[]></button>
                 </div>
                 <div class="w3-col s3">
-                    <button id=infobutton class="w3-button w3-block w3-xlarge w3-red">I</button>
+                    <button id=btrack class="w3-button w3-block w3-xlarge w3-red">&lt;&gt;</CH></button>
                 </div>
                 <div class="w3-col s3">
                     <button id=reboot class="w3-button w3-block w3-xlarge w3-blue">(!)</button>
@@ -75,36 +75,62 @@
             <br>
             <div class="w3-row-padding">
                 <div id=comando class="w3-col fijo">
+
                 </div>
             </div>
             <div class="w3-row-padding">
                 <div class="w3-col">
-                    <div class="w3-light-grey" style="position: fixed; left: 0; right: 0; padding-left: 0%; padding-right: 0%; ">
-                        <div id="slide" class="w3-blue w3-center fijo" style='width:0%'></div>
+                    <div id=marcas class="w3-col" style="position:relative;">
+
+                    </div>
+                    <div class="w3-light-grey">
+                        <div id="slide" class="w3-blue w3-center fijo" style='width:0%'>0%</div>
+                    </div>
+                    <input id=sliderm type="range" min="0" max="100" value="0" step="0.01" style='width: 100%;'>
+                </div>
+            </div>
+            <div class="w3-row-padding">
+                <div class="w3-col">
+                    <div class="w3-light-grey" style="line-height: 80%;">
+                        <div id="slidec" class="w3-light-green w3-center fijo" style='width:0%'>0%</div>
                     </div>
                 </div>
-                <div id=marcas class="w3-col" style="position: absolute;">
-                </div>
             </div>
-            <div class="w3-row-padding" style="position: relative;">
-                <div class="w3-col">
-                    <p></p>
+            <div class="w3-row-padding">
+                <div id=dtini class="w3-left-align w3-col s4 fijo">
                 </div>
-                <div class="w3-col">
-                    <p></p>
+                <div id=dtcap class="w3-center w3-col s4 fijo">
+                </div>
+                <div id=dtfin class="w3-right-align w3-col s4 fijo">
                 </div>
             </div>
             <div class="w3-row-padding">
-                <div id=dtini class="w3-left-align w3-col s6 fijo">
-                </div>
-                <div id=dtfin class="w3-right-align w3-col s6 fijo">
+                <div id=titcap class="w3-col fijo">
                 </div>
             </div>
             <div class="w3-row-padding">
-                <div id=continuo class="w3-col fijo">
+                <div id=infoname class="w3-col fijo">
                 </div>
             </div>
             <hr>
         </div>
-    </header>
+    </div>
+    <div id="ctracks" class="w3-modal" style="display:none">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+                <div class="w3-bar w3-light-grey">
+                    <div class="w3-left w3-padding"><b><u>Tracks</u></b></div>
+                    <div class="w3-button w3-blue w3-right"
+                        onclick="document.getElementById('ctracks').style.display='none'">&times;</div>
+                </div>
+                <div class="w3-row">
+                    <ul id=tracks class="myUL">
+
+                    </ul>
+                </div>
+                <p>(List of chapters)</p>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
