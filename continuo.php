@@ -24,7 +24,8 @@ if (is_null($sustitucion1[0])) {
     $res->dtini = $sustitucion1[2] . ':' . $sustitucion1[3] . ':' . $sustitucion1[4];
     $res->dtfin = $sustitucion1[5] . ':' . $sustitucion1[6] . ':' . $sustitucion1[7];
     $res->porcien = $mom * 100 / $in->caps[$numcaps - 1]->fin; //$sustitucion1[6];
-
+    $res->ms = $mom;
+    $res->fs = $in->caps[$numcaps - 1]->fin;
     $i = 0;
     while ($mom > $in->caps[$i]->ini && $i < $numcaps) {
         ++$i;

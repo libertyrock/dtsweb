@@ -1,6 +1,7 @@
 var siestado;
 var nomFilePlaying = "";
 var jdatos;
+var cdatos;
 
 // **************************************
 // ************* Eventos ****************
@@ -19,9 +20,9 @@ function eventos() {
 
 function sliderm_change() {
     desactiva_continuo();
-    var valor = $("#sliderm").val();
-    var params = { id: nomFilePlaying, cap: 'null', start: valor };
-    sndsvr('start.php', params, function () {
+    var valor = $("#sliderm").val() * cdatos.fs / 100;
+    var params = { seconds: valor };
+    sndsvr('seek.php', params, function () {
         activa_continuo();
     });
 
@@ -129,8 +130,8 @@ function closeSidebar() {
 function continuo() {
     sndsvr('continuo.php', null, function (response) {
         // Perform operation on the return value
-        var jdatos = JSON.parse(response);
-        if (jdatos.pausa) {
+        cdatos = JSON.parse(response);
+        if (cdatos.pausa) {
             $("#slide").removeClass("w3-light-blue");
             $("#slide").addClass("w3-dark-grey");
             $("#slide").addClass("blink_text");
@@ -139,15 +140,15 @@ function continuo() {
             $("#slide").removeClass("w3-dark-grey");
             $("#slide").addClass("w3-light-blue");
         }
-        $('#titcap').html(jdatos.titcap);
-        $("#slide").width(jdatos.porcien + '%');
-        $("#slide").html(Math.round(jdatos.porcien) + '%');
-        $("#slidec").width(jdatos.cporcien + '%');
-        $("#slidec").html(Math.round(jdatos.cporcien) + '%');
-        $("#sliderm").val(jdatos.porcien);
-        $('#dtini').html(jdatos.dtini);
-        $('#dtcap').html(jdatos.dtcap);
-        $('#dtfin').html(jdatos.dtfin);
+        $('#titcap').html(cdatos.titcap);
+        $("#slide").width(cdatos.porcien + '%');
+        $("#slide").html(Math.round(cdatos.porcien) + '%');
+        $("#slidec").width(cdatos.cporcien + '%');
+        $("#slidec").html(Math.round(cdatos.cporcien) + '%');
+        $("#sliderm").val(cdatos.porcien);
+        $('#dtini').html(cdatos.dtini);
+        $('#dtcap').html(cdatos.dtcap);
+        $('#dtfin').html(cdatos.dtfin);
     });
 }
 
@@ -168,14 +169,16 @@ function getInfoPlaying() {
             html_marcas += "<span class=\"w3-text-blue\" style=\"position: absolute; margin-left: -3px; left: " + porc + "%; \">|</span>";
         }
         $("#marcas").html(html_marcas);
-        var html_info = "";
-        html_info += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
-        html_info += jdatos.info0 + ',';
-        html_info += jdatos.info1 + '<br>';
-        html_info += jdatos.info2 + ',';
-        html_info += jdatos.info3 + '<br>';
-        html_info += jdatos.info4 + '<br>';
-        $("#infoname").html(html_info);
+        var html_name = "";
+        html_name += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
+        var html_stream = "";
+        html_stream += jdatos.info0 + ', ';
+        html_stream += jdatos.info1 + '<br>';
+        html_stream += jdatos.info2 + ', ';
+        html_stream += jdatos.info3 + '<br>';
+        html_stream += jdatos.info4 ;
+        $("#infoname").html(html_name);
+        $("#infostream").html(html_stream);
         $("#tracks").html(html_caps);
 
     });
@@ -183,7 +186,11 @@ function getInfoPlaying() {
 
 function playc(capitulo) {
     document.getElementById('ctracks').style.display = 'none';
-    play(nomFilePlaying, capitulo);
+    var valor = jdatos.caps[capitulo - 1].ini;
+    var params = { seconds: valor };
+    sndsvr('seek.php', params, function () {
+        activa_continuo();
+    });
 }
 
 function play(nomfile, capitulo) {
@@ -194,11 +201,11 @@ function play(nomfile, capitulo) {
     });
 }
 
-function activa_continuo(){
+function activa_continuo() {
     siestado = setInterval(continuo, 1000);
 }
 
-function desactiva_continuo(){
+function desactiva_continuo() {
     clearInterval(siestado);
 }
 
