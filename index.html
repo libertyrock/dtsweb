@@ -17,9 +17,9 @@
 <body>
     <nav id="mySidebar" style="display:none">
         <div class="w3-top w3-bar">
-            <span id=cuenta class="w3-button w3-large w3-blue w3-display-topleft"></span>
-            <button id=cargar class="w3-button w3-large w3-red w3-display-topmiddle">Load</button>
-            <span onclick="closeSidebar()" class="w3-button w3-large w3-blue w3-display-topright">X</span>
+            <span id=cuenta class="w3-padding w3-large w3-blue w3-display-topleft"></span>
+            <button id=cargar class="w3-padding w3-large w3-red w3-display-topmiddle">Load</button>
+            <span onclick="closeSidebar()" class="w3-padding w3-large w3-blue w3-display-topright">X</span>
             <br><br><br>
             <div id=buscar class="w3-row">
                 <div class="w3-col s10">
@@ -27,7 +27,7 @@
                         title="Type in a name">
                 </div>
                 <div class="w3-col s2">
-                    <span class="w3-button w3-red w3-large" onclick="myInputProc();">X</span>
+                    <span class="w3-padding w3-red w3-large" onclick="myInputProc();">X</span>
                 </div>
             </div>
         </div>
@@ -36,34 +36,34 @@
     </nav>
 
     <div id="mibar" class="w3-top w3-bar">
-        <button class="w3-bar-item w3-button w3-xxlarge w3-blue w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+        <button class="w3-bar-item w3-padding w3-xxlarge w3-blue w3-hover-theme" onclick="openSidebar()">&#9776;</button>
         <h1 class="w3-bar-item">DTS DVD</h1>
 
         <div id="resto" class="w3-container">
 
             <div class="w3-row-padding">
                 <div class="w3-col s6 m2 w3-padding">
-                    <button id=start class="w3-button w3-block w3-xlarge w3-red">[]></button>
+                    <button id=start class="w3-padding w3-block w3-xlarge w3-red">[]></button>
                 </div>
                 <div class="w3-col s6 m2 w3-padding">
-                    <button id=btrack class="w3-button w3-block w3-xlarge w3-red">&lt;&gt;</CH></button>
+                    <button id=btrack class="w3-padding w3-block w3-xlarge w3-red">&lt;&gt;</CH></button>
                 </div>
                 <!-- <div class="w3-col s3 m2">
-                    <button id=reboot class="w3-button w3-block w3-xlarge w3-blue">(!)</button>
+                    <button id=reboot class="w3-padding w3-block w3-xlarge w3-blue">(!)</button>
                 </div> -->
                 <div class="w3-col s6 m2 w3-padding">
                     <i class="fas fa-caret-right"></i>
-                    <button id=prev class="w3-button w3-block w3-xlarge w3-red">|&lt;</button>
+                    <button id=prev class="w3-padding w3-block w3-xlarge w3-red">|&lt;</button>
                 </div>
                 <div class="w3-col s6 m2 w3-padding">
                     <i class="fas fa-caret-right"></i>
-                    <button id=next class="w3-button w3-block w3-xlarge w3-red">&gt;|</button>
+                    <button id=next class="w3-padding w3-block w3-xlarge w3-red">&gt;|</button>
                 </div>
                 <div class="w3-col s6 m2 w3-padding">
-                    <button id=pause class="w3-button w3-block w3-xlarge w3-red">||</button>
+                    <button id=pause class="w3-padding w3-block w3-xlarge w3-red">||</button>
                 </div>
                 <div class="w3-col s6 m2 w3-padding">
-                    <button id=stop class="w3-button w3-block w3-xlarge w3-red">[]</button>
+                    <button id=stop class="w3-padding w3-block w3-xlarge w3-red">[]</button>
                 </div>
             </div>
             <br>
@@ -116,7 +116,7 @@
             <div class="w3-container">
                 <div class="w3-bar w3-light-grey">
                     <div class="w3-left w3-padding"><b><u>Tracks</u></b></div>
-                    <div class="w3-button w3-blue w3-right"
+                    <div class="w3-padding w3-blue w3-right"
                         onclick="document.getElementById('ctracks').style.display='none'">&times;</div>
                 </div>
                 <div class="w3-row">

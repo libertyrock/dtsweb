@@ -131,11 +131,18 @@ function continuo() {
     sndsvr('continuo.php', null, function (response) {
         // Perform operation on the return value
         cdatos = JSON.parse(response);
+        if (!cdatos.playing) {
+            $("#start").addClass("blink_text");
+        } else {
+            $("#start").removeClass("blink_text");
+        }
         if (cdatos.pausa) {
+            $("#pause").addClass("blink_text");
             $("#slide").removeClass("w3-light-blue");
             $("#slide").addClass("w3-dark-grey");
             $("#slide").addClass("blink_text");
         } else {
+            $("#pause").removeClass("blink_text");
             $("#slide").removeClass("blink_text");
             $("#slide").removeClass("w3-dark-grey");
             $("#slide").addClass("w3-light-blue");
@@ -171,14 +178,8 @@ function getInfoPlaying() {
         $("#marcas").html(html_marcas);
         var html_name = "";
         html_name += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
-        var html_stream = "";
-        html_stream += jdatos.info0 + ', ';
-        html_stream += jdatos.info1 + '<br>';
-        html_stream += jdatos.info2 + ', ';
-        html_stream += jdatos.info3 + '<br>';
-        html_stream += jdatos.info4 ;
         $("#infoname").html(html_name);
-        $("#infostream").html(html_stream);
+        $("#infostream").html(jdatos.info);
         $("#tracks").html(html_caps);
 
     });

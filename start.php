@@ -23,18 +23,14 @@ preg_match_all($patron, $salida, $capitulos, PREG_SET_ORDER);
 $patron = '/([^-]*) - (.*)\.MKA/';
 preg_match($patron, $name, $filename);
 
-$patron = '/Stream #0:0.*: Audio: (.*), (.*), (.*), (.*), (.*)/';
+$patron = '/Stream #0:0.*: Audio: (.*)/';
 preg_match($patron, $salida, $informacion);
 
 $res->name=$name;
 $res->artist=$filename[1];
 $res->album=$filename[2];
 
-$res->info0=$informacion[1];
-$res->info1=$informacion[2];
-$res->info2=$informacion[3];
-$res->info3=$informacion[4];
-$res->info4=$informacion[5];
+$res->info=$informacion[1];
 
 $i=0;
 foreach ($capitulos as $val) {
