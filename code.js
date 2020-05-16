@@ -18,6 +18,27 @@ function eventos() {
     $("#sliderm").change(sliderm_change);
 }
 
+// ### Event infoitem ###
+function infoitem(nomfile) {
+    var params = { id: nomfile };
+    sndsvr("infoitem.php", params, function (response) {
+        var jdatos = JSON.parse(response);
+        var slen = jdatos.caps.length;
+        var fin = jdatos.caps[slen - 1].fin;
+        var html_caps = "";
+        var j = 0;
+        for (let i = 0; i < slen; i++) {
+            ++j;
+            html_caps += '<li><a id=c' + j + ' onclick="play(\'' + jdatos.name + '\',' + j + ');">' + j + ': ' + jdatos.caps[i].tit + '</a></li>';
+        }
+        var html_name = "";
+        html_name += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
+
+        $("#iitracks").html(html_name + html_caps + "<p>" + jdatos.info + "</p>");
+        $("#iiwin").show();
+    });
+}
+
 function sliderm_change() {
     desactiva_continuo();
     var valor = $("#sliderm").val() * cdatos.fs / 100;
@@ -125,6 +146,7 @@ function closeSidebar() {
     $("#mySidebar").hide();
     $("#mibar").show();
     $("#ctracks").hide();
+    $("#iiwin").hide();
 }
 
 function continuo() {

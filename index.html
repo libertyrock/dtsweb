@@ -32,11 +32,13 @@
             </div>
         </div>
         <div id=filelist style="margin-top:110px">
+
         </div>
     </nav>
 
     <div id="mibar" class="w3-top w3-bar">
-        <button class="w3-bar-item w3-padding w3-xxlarge w3-blue w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+        <button class="w3-bar-item w3-padding w3-xxlarge w3-blue w3-hover-theme"
+            onclick="openSidebar()">&#9776;</button>
         <h1 class="w3-bar-item">DTS DVD</h1>
 
         <div id="resto" class="w3-container">
@@ -128,5 +130,20 @@
             </div>
         </div>
     </div>
+    <div id="iiwin" class="w3-modal" style="display:none">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+                <div class="w3-bar w3-light-grey">
+                    <div class="w3-left w3-padding"><b><u>Tracks</u></b></div>
+                    <div class="w3-padding w3-blue w3-right"
+                        onclick="document.getElementById('iiwin').style.display='none'">&times;</div>
+                </div>
+                <div class="w3-row">
+                    <ul id=iitracks class="myUL">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
