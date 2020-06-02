@@ -40,13 +40,16 @@ function infoitem(nomfile) {
 }
 
 function sliderm_change() {
-    desactiva_continuo();
-    var valor = $("#sliderm").val() * cdatos.fs / 100;
-    var params = { seconds: valor };
-    sndsvr('seek.php', params, function () {
-        activa_continuo();
-    });
-
+    if (cdatos.playing) {
+        desactiva_continuo();
+        var valor = $("#sliderm").val() * cdatos.fs / 100;
+        var params = { seconds: valor };
+        sndsvr('seek.php', params, function () {
+            activa_continuo();
+        });
+    } else {
+        alert("Press play before");
+    }
 }
 
 function btrack_click() {
@@ -59,11 +62,19 @@ function start_click() {
 }
 
 function prev_click() {
-    sndsvr("prev.php", null, null);
+    if (cdatos.playing) {
+        sndsvr("prev.php", null, null);
+    } else {
+        alert("Press play before");
+    }
 }
 
 function next_click() {
-    sndsvr("next.php", null, null);
+    if (cdatos.playing) {
+        sndsvr("next.php", null, null);
+    } else {
+        alert("Press play before");
+    }
 }
 
 function cargar_click() {
@@ -79,7 +90,11 @@ function cargar_click() {
 }
 
 function pause_click() {
-    sndsvr("pause.php", null, null);
+    if (cdatos.playing) {
+        sndsvr("pause.php", null, null);
+    } else {
+        alert("Press play before");
+    }
 }
 
 function stop_click() {
@@ -88,6 +103,14 @@ function stop_click() {
 
 function reboot_click() {
     sndsvr("reboot.php", null, null);
+}
+
+// ### Event touchmove ###
+function touchmove(event, file, id) {
+    var x = event.touches[0].clientX;
+    var y = event.touches[0].clientY;
+    //document.getElementById("b" + id).innerHTML = x + ", " + y;
+    if (x < 20) play(file, 1);
 }
 
 // **************************************
@@ -208,12 +231,16 @@ function getInfoPlaying() {
 }
 
 function playc(capitulo) {
-    document.getElementById('ctracks').style.display = 'none';
-    var valor = jdatos.caps[capitulo - 1].ini;
-    var params = { seconds: valor };
-    sndsvr('seek.php', params, function () {
-        activa_continuo();
-    });
+    if (cdatos.playing) {
+        document.getElementById('ctracks').style.display = 'none';
+        var valor = jdatos.caps[capitulo - 1].ini;
+        var params = { seconds: valor };
+        sndsvr('seek.php', params, function () {
+            activa_continuo();
+        });
+    } else {
+        alert("Press play before");
+    }
 }
 
 function play(nomfile, capitulo) {

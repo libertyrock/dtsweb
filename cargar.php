@@ -9,7 +9,9 @@ if ($gestor) {
     while (($bufer = fgets($gestor, 4096)) !== false) {
         $bufer_limpio=addslashes(trim($bufer));
         ++$i;
-        $res->lista.='<li class=w3-bar><button id=b'.$i.' class=w3-bar-item onclick="play(\''.$bufer_limpio.'\',1);">|&gt;</button><a class=w3-bar-item onclick="infoitem(\''.$bufer_limpio.'\');">'.$bufer.'</a></li>';
+        $res->lista.='<li class=w3-bar ontouchmove="touchmove(event,\''.$bufer_limpio.'\','.$i.');" >';
+        $res->lista.='<button id=b'.$i.' class="w3-bar-item w3-red" onclick="play(\''.$bufer_limpio.'\',1);">|&gt;</button>';
+        $res->lista.='<a class=w3-bar-item onclick="infoitem(\''.$bufer_limpio.'\');">'.$bufer.'</a></li>';
     }
     $res->lista.='</ul>';
     $res->count=$i;
