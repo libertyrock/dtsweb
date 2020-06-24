@@ -1,2 +1,2 @@
 <?php
-file_put_contents("tubo","pause\n");
+file_put_contents("tubo","cycle pause\n");
