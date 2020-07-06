@@ -1,5 +1,6 @@
 <?php
-echo file_get_contents("playing");
+include 'config.php';
+echo file_get_contents($pt.'playing');
 //$res.name
 //$res.artist
 //$res.album

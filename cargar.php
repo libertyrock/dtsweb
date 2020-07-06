@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
-exec('rm salida ; ls -1a '.$path.'/*.MKA | xargs -d "\n" -n 1 basename > salida');
-$gestor = @fopen('salida', 'r');
+exec('rm '.$pt.'salida ; ls -1a '.$path.'/*.MKA | xargs -d "\n" -n 1 basename > '.$pt.'salida');
+$gestor = @fopen($pt.'salida', 'r');
 if ($gestor) {
     $i=0;
 

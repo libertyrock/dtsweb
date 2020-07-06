@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 exec("pkill mpv");
-exec("rm out");
+exec('rm '.$pt.'out');
 $name=$_POST["id"];
 $cap=$_POST["cap"];
 $start=$_POST["start"];
@@ -11,7 +11,7 @@ if($cap=='null'){
     $posicion='#'.$cap;
 }
 $file=$path.$name;
-$orden='mpv --input-file=tubo --no-video --audio-device alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "'.$file.'" --start='.$posicion.' 1> out 2>&1 &';
+$orden='mpv --input-file=tubo --no-video --audio-device alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "'.$file.'" --start='.$posicion.' 1> '.$pt.'out 2>&1 &';
 exec($orden);
 
 $orden='ffmpeg -i "'.$file.'" -f ffmetadata 2>&1';
@@ -46,4 +46,4 @@ foreach ($capitulos as $val) {
 //$res.album
 //$res.info[0-4]
 //$res.caps[] cap,ini,fin,tit
-file_put_contents("playing",json_encode($res));
+file_put_contents($pt.'playing',json_encode($res));

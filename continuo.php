@@ -1,5 +1,6 @@
 <?php
-$cadena = exec("tail -2 out");
+include 'config.php';
+$cadena = exec('tail -2 '.$pt.'out');
 $patron1 = '/(.*)A: (\d\d):(\d\d):(\d\d) \/ (\d\d):(\d\d):(\d\d) \((.*)\)/';
 preg_match($patron1, $cadena, $sustitucion1);
 
@@ -8,7 +9,7 @@ if ($sustitucion1[1] != '') {
     $res->pausa = true;
 }
 
-$in = json_decode(file_get_contents('playing'));
+$in = json_decode(file_get_contents($pt.'playing'));
 $numcaps = sizeof($in->caps);
 
 if (is_null($sustitucion1[0])) {
