@@ -176,6 +176,7 @@ function continuo() {
     sndsvr('continuo.php', null, function (response) {
         // Perform operation on the return value
         cdatos = JSON.parse(response);
+        if(nomFilePlaying!=cdatos.name) getInfoPlaying();
         if (!cdatos.playing) {
             $("#start").addClass("blink_text");
         } else {
@@ -226,7 +227,6 @@ function getInfoPlaying() {
         $("#infoname").html(html_name);
         $("#infostream").html(jdatos.info);
         $("#tracks").html(html_caps);
-
     });
 }
 

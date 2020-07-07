@@ -11,6 +11,7 @@ if ($sustitucion1[1] != '') {
 
 $in = json_decode(file_get_contents($pt.'playing'));
 $numcaps = sizeof($in->caps);
+$res->name=$in->name;
 
 if (is_null($sustitucion1[0])) {
     $mom = 0;
