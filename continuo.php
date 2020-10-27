@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-$cadena = exec('tail -2 '.$pt.'out');
+$cadena = exec('tail -2 ' . $pt . 'out');
 $patron1 = '/(.*)A: (\d\d):(\d\d):(\d\d) \/ (\d\d):(\d\d):(\d\d) \((.*)\)/';
 preg_match($patron1, $cadena, $sustitucion1);
 
@@ -9,9 +9,9 @@ if ($sustitucion1[1] != '') {
     $res->pausa = true;
 }
 
-$in = json_decode(file_get_contents($pt.'playing'));
+$in = json_decode(file_get_contents($pt . 'playing'));
 $numcaps = sizeof($in->caps);
-$res->name=$in->name;
+$res->name = $in->name;
 
 if (is_null($sustitucion1[0])) {
     $mom = 0;
@@ -27,10 +27,10 @@ if (is_null($sustitucion1[0])) {
     $res->dtini = $sustitucion1[2] . ':' . $sustitucion1[3] . ':' . $sustitucion1[4];
     $res->dtfin = $sustitucion1[5] . ':' . $sustitucion1[6] . ':' . $sustitucion1[7];
     $res->porcien = $mom * 100 / $in->caps[$numcaps - 1]->fin; //$sustitucion1[6];
-    //$res->ms = $mom;
-    //$res->fs = $in->caps[$numcaps - 1]->fin;
+    $res->ms = $mom;
+    $res->fs = $in->caps[$numcaps - 1]->fin;
     $i = 0;
-    while ($mom > $in->caps[$i]->ini && $i < $numcaps) {
+    while ($mom + 1 >= $in->caps[$i]->ini && $i < $numcaps) {
         ++$i;
     }
 
