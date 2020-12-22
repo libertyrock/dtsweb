@@ -7,15 +7,15 @@ var cdatos;
 // ************* Eventos ****************
 // **************************************
 function eventos() {
-    $('#reboot').click(reboot_click);
-    $('#start').click(start_click);
-    $('#next').click(next_click);
-    $('#prev').click(prev_click);
-    $('#cargar').click(cargar_click);
-    $('#pause').click(pause_click);
-    $('#stop').click(stop_click);
-    $('#btrack').click(btrack_click);
-    $("#sliderm").change(sliderm_change);
+    $('#reboot').on("click",reboot_click);
+    $('#start').on("click",start_click);
+    $('#next').on("click",next_click);
+    $('#prev').on("click",prev_click);
+    $('#cargar').on("click",cargar_click);
+    $('#pause').on("click",pause_click);
+    $('#stop').on("click",stop_click);
+    $('#btrack').on("click",btrack_click);
+    $("#sliderm").on("change",sliderm_change);
 }
 
 // ### Event infoitem ###
@@ -148,7 +148,7 @@ function myFunction() {
 function myInputProc() {
     $("#myInput").val("");
     myFunction();
-    $("#myInput").focus();
+    $("#myInput").trigger("focus");
 }
 
 function openSidebar() {
@@ -158,7 +158,7 @@ function openSidebar() {
     // document.getElementById("pie").style.display = "none";
     $("#mySidebar").show();
     $("#mibar").hide();
-    $("#myInput").focus();
+    $("#myInput").trigger("focus");
 }
 
 function closeSidebar() {

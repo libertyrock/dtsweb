@@ -48,3 +48,5 @@ echo json_encode($res);
 //$res.dtcap
 //$res.titcap
 //$res.cporcien
+//$res.name
+//$res.playing
