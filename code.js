@@ -85,7 +85,7 @@ function cargar_click() {
         $("#filelist").html(jdatos.lista);
         $("#cuenta").html("Total: " + jdatos.count);
         $("#myInput").val("");
-        $("#myInput").focus();
+        $("#myInput").trigger("focus");
     });
 }
 
@@ -262,7 +262,7 @@ function desactiva_continuo() {
 // **************************************
 // ************* Inicio *****************
 // **************************************
-$(document).ready(function () {
+$(function () {
     getInfoPlaying();
     continuo();
     cargar_click();
