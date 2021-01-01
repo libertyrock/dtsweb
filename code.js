@@ -7,15 +7,16 @@ var cdatos;
 // ************* Eventos ****************
 // **************************************
 function eventos() {
-    $('#reboot').on("click",reboot_click);
-    $('#start').on("click",start_click);
-    $('#next').on("click",next_click);
-    $('#prev').on("click",prev_click);
-    $('#cargar').on("click",cargar_click);
-    $('#pause').on("click",pause_click);
-    $('#stop').on("click",stop_click);
-    $('#btrack').on("click",btrack_click);
-    $("#sliderm").on("change",sliderm_change);
+    $('#reboot').on("click", reboot_click);
+    $('#start').on("click", start_click);
+    $('#next').on("click", next_click);
+    $('#prev').on("click", prev_click);
+    $('#cargar').on("click", cargar_click);
+    $('#pause').on("click", pause_click);
+    $('#stop').on("click", stop_click);
+    $('#btrack').on("click", btrack_click);
+    $("#sliderc").on("change", sliderc_change);
+    $("#slidera").on("change", slidera_change);
 }
 
 // ### Event infoitem ###
@@ -39,10 +40,25 @@ function infoitem(nomfile) {
     });
 }
 
-function sliderm_change() {
+function sliderc_change() {
     if (cdatos.playing) {
         desactiva_continuo();
-        var valor = $("#sliderm").val() * cdatos.fs / 100;
+        var valor = $("#sliderc").val() * cdatos.fs / 100;
+        var params = { seconds: valor };
+        sndsvr('seek.php', params, function () {
+            activa_continuo();
+        });
+    } else {
+        alert("Press play before");
+    }
+}
+
+function slidera_change() {
+    if (cdatos.playing) {
+        desactiva_continuo();
+        var p = 100 / $("#slidera").val();
+        var s = (jdatos.caps[cdatos.capnum].fin - jdatos.caps[cdatos.capnum].ini) / p
+        var valor = jdatos.caps[cdatos.capnum].ini + s;
         var params = { seconds: valor };
         sndsvr('seek.php', params, function () {
             activa_continuo();
@@ -176,7 +192,7 @@ function continuo() {
     sndsvr('continuo.php', null, function (response) {
         // Perform operation on the return value
         cdatos = JSON.parse(response);
-        if(nomFilePlaying!=cdatos.name) getInfoPlaying();
+        if (nomFilePlaying != cdatos.name) getInfoPlaying();
         if (!cdatos.playing) {
             $("#start").addClass("blink_text");
         } else {
@@ -184,21 +200,23 @@ function continuo() {
         }
         if (cdatos.pausa) {
             $("#pause").addClass("blink_text");
-            $("#slide").removeClass("w3-light-blue");
-            $("#slide").addClass("w3-dark-grey");
-            $("#slide").addClass("blink_text");
+            $("#slc").removeClass("w3-light-blue");
+            $("#slc").addClass("w3-dark-grey");
+            $("#slc").addClass("blink_text");
         } else {
             $("#pause").removeClass("blink_text");
-            $("#slide").removeClass("blink_text");
-            $("#slide").removeClass("w3-dark-grey");
-            $("#slide").addClass("w3-light-blue");
+            $("#slc").removeClass("blink_text");
+            $("#slc").removeClass("w3-dark-grey");
+            $("#slc").addClass("w3-light-blue");
         }
         $('#titcap').html(cdatos.titcap);
-        $("#slide").width(cdatos.porcien + '%');
-        $("#slide").html(Math.round(cdatos.porcien) + '%');
-        $("#slidec").width(cdatos.cporcien + '%');
-        $("#slidec").html(Math.round(cdatos.cporcien) + '%');
-        $("#sliderm").val(cdatos.porcien);
+        $("#slc").width(cdatos.porcien + '%');
+        $("#slc").html(Math.round(cdatos.porcien) + '%');
+        $("#sliderc").val(cdatos.porcien);
+
+        $("#sla").width(cdatos.cporcien + '%');
+        $("#sla").html(Math.round(cdatos.cporcien) + '%');
+        $("#slidera").val(cdatos.cporcien);
         $('#dtini').html(cdatos.dtini);
         $('#dtcap').html(cdatos.dtcap);
         $('#dtfin').html(cdatos.dtfin);

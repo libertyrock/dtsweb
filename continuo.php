@@ -38,6 +38,7 @@ if (is_null($sustitucion1[0])) {
     $res->titcap = '<b>' . $in->caps[$i - 1]->tit . '</b>';
     $res->cporcien = ($mom - $in->caps[$i - 1]->ini) * 100 / ($in->caps[$i - 1]->fin - $in->caps[$i - 1]->ini);
     $res->playing = true;
+    $res->capnum=$i-1;
 }
 
 echo json_encode($res);
@@ -50,3 +51,4 @@ echo json_encode($res);
 //$res.cporcien
 //$res.name
 //$res.playing
+//$res.capnum
