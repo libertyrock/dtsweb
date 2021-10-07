@@ -203,11 +203,17 @@ function continuo() {
             $("#slc").removeClass("w3-light-blue");
             $("#slc").addClass("w3-dark-grey");
             $("#slc").addClass("blink_text");
+            $("#sla").removeClass("w3-light-green");
+            $("#sla").addClass("w3-dark-grey");
+            $("#sla").addClass("blink_text");
         } else {
             $("#pause").removeClass("blink_text");
             $("#slc").removeClass("blink_text");
             $("#slc").removeClass("w3-dark-grey");
             $("#slc").addClass("w3-light-blue");
+            $("#sla").removeClass("blink_text");
+            $("#sla").removeClass("w3-dark-grey");
+            $("#sla").addClass("w3-light-green");
         }
         $('#titcap').html(cdatos.titcap);
         $("#slc").width(cdatos.porcien + '%');
