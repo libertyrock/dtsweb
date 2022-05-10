@@ -1,11 +1,17 @@
 {
-    "configurations": [
+  "configurations": [
     {
-        "name": "Depurar",
-        "request": "launch",
-        "type": "pwa-chrome",
-        "url": "http://phmnet.mooo.com/dtsweb",
-        "webRoot": "${workspaceFolder}"
+      "name": "Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost/${workspaceFolderBasename}",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Php",
+      "type": "php",
+      "request": "launch",
+      "port": 9000
     }
-    ]
+  ]
 }

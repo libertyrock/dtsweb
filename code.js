@@ -231,28 +231,26 @@ function continuo() {
 
 function getInfoPlaying() {
     sndsvr("obtener.php", null, function (response) {
-        if (response != '') {
-            jdatos = JSON.parse(response);
-            nomFilePlaying = jdatos.name;
-            var slen = jdatos.caps.length;
-            var fin = jdatos.caps[slen - 1].fin;
-            var html_marcas = "";
-            var html_caps = "";
-            var j = 0;
-            for (let i = 0; i < slen; i++) {
-                ++j;
-                //html_caps += '<li>' + jdatos.caps[i].tit + '</li>';
-                html_caps += '<li><a id=c' + j + ' onclick="playc(' + j + ');">' + j + ': ' + jdatos.caps[i].tit + '</a></li>';
-                var porc = jdatos.caps[i].ini * 100 / fin;
-                html_marcas += "<span class=\"w3-text-blue\" style=\"position: absolute; margin-left: -3px; left: " + porc + "%; \">|</span>";
-            }
-            $("#marcas").html(html_marcas);
-            var html_name = "";
-            html_name += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
-            $("#infoname").html(html_name);
-            $("#infostream").html(jdatos.info);
-            $("#tracks").html(html_caps);
+        jdatos = JSON.parse(response);
+        nomFilePlaying = jdatos.name;
+        var slen = jdatos.caps.length;
+        var fin = jdatos.caps[slen - 1].fin;
+        var html_marcas = "";
+        var html_caps = "";
+        var j = 0;
+        for (let i = 0; i < slen; i++) {
+            ++j;
+            //html_caps += '<li>' + jdatos.caps[i].tit + '</li>';
+            html_caps += '<li><a id=c' + j + ' onclick="playc(' + j + ');">' + j + ': ' + jdatos.caps[i].tit + '</a></li>';
+            var porc = jdatos.caps[i].ini * 100 / fin;
+            html_marcas += "<span class=\"w3-text-blue\" style=\"position: absolute; margin-left: -3px; left: " + porc + "%; \">|</span>";
         }
+        $("#marcas").html(html_marcas);
+        var html_name = "";
+        html_name += '<b><u>' + jdatos.artist + '</u><br>' + jdatos.album + '</b><br>';
+        $("#infoname").html(html_name);
+        $("#infostream").html(jdatos.info);
+        $("#tracks").html(html_caps);
     });
 }
 

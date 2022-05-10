@@ -11,7 +11,7 @@ if($cap=='null'){
     $posicion='#'.$cap;
 }
 $file=$path.$name;
-$orden='mpv --input-file=tubo --no-video --audio-device alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "'.$file.'" --start='.$posicion.' 1> '.$pt.'out 2>&1 &';
+$orden='mpv --input-file=tubo --no-video --audio-device=alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "'.$file.'" --start='.$posicion.' 1> '.$pt.'out 2>&1 &';
 exec($orden);
 
 $orden='ffmpeg -i "'.$file.'" -f ffmetadata 2>&1';
