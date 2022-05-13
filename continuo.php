@@ -1,11 +1,14 @@
 <?php
 include 'config.php';
+$res = new stdClass(); 
+
 $cadena = exec('tail -2 ' . $pt . 'out');
-$patron1 = '/(.*)A: (\d\d):(\d\d):(\d\d) \/ (\d\d):(\d\d):(\d\d) \((.*)\)/';
-preg_match($patron1, $cadena, $sustitucion1);
+$patron1 = '/\\r.*K(.*) (\d\d):(\d\d):(\d\d) \/ (\d\d):(\d\d):(\d\d) \((.*)\)/';
+$ok=preg_match($patron1, $cadena, $sustitucion1);
+//error_log($sustitucion1[0]);
 
 $res->pausa = false;
-if ($sustitucion1[1] != '') {
+if ($sustitucion1[1] == 'yes') {
     $res->pausa = true;
 }
 
@@ -42,6 +45,7 @@ if (is_null($sustitucion1[0])) {
 }
 
 echo json_encode($res);
+
 //$res.pausa
 //$res.dtini
 //$res.dtfin
