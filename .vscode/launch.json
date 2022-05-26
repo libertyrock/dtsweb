@@ -5,13 +5,12 @@
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost/${workspaceFolderBasename}",
-      "webRoot": "${workspaceFolder}"
     },
     {
       "name": "Php",
       "type": "php",
       "request": "launch",
-      "port": 9000
+      "port": 9003
     }
   ]
 }
