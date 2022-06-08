@@ -4,13 +4,17 @@
       "name": "Chrome",
       "request": "launch",
       "type": "chrome",
-      "url": "http://localhost/${workspaceFolderBasename}",
+      "url": "http://localhost/${workspaceFolderBasename}"
     },
     {
       "name": "Php",
       "type": "php",
       "request": "launch",
-      "port": 9003
-    }
+      "port": 9003,
+      "xdebugSettings": {
+        "max_data": -1,
+        "max_children": -1
+      }
+}
   ]
 }

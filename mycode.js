@@ -24,30 +24,7 @@ function infoitem(nomfile) {
   var params = { id: nomfile };
   sndsvr("infoitem.php", params, function (response) {
     var jdatos = JSON.parse(response);
-    var slen = jdatos.caps.length;
-    var fin = jdatos.caps[slen - 1].fin;
-    var html_caps = "";
-    var j = 0;
-    for (let i = 0; i < slen; i++) {
-      ++j;
-      html_caps +=
-        "<li><a id=c" +
-        j +
-        " onclick=\"play('" +
-        jdatos.name +
-        "'," +
-        j +
-        ');">' +
-        j +
-        ": " +
-        jdatos.caps[i].tit +
-        "</a></li>";
-    }
-    var html_name = "";
-    html_name +=
-      "<b><u>" + jdatos.artist + "</u><br>" + jdatos.album + "</b><br>";
-
-    $("#iitracks").html(html_name + html_caps + "<p>" + jdatos.info + "</p>");
+    w3.displayObject('iitracks', jdatos);
     $("#iiwin").show();
   });
 }
@@ -107,12 +84,10 @@ function next_click() {
 }
 
 function cargar_click() {
-  $("#cuenta").html("Loading ...");
-  $("#filelist").html("");
   sndsvr("cargar.php", null, function (response) {
     var jdatos = JSON.parse(response);
-    $("#filelist").html(jdatos.lista);
-    $("#cuenta").html("Total: " + jdatos.count);
+    w3.displayObject("cuenta", jdatos);
+    w3.displayObject("myUL", jdatos);
     $("#myInput").val("");
     $("#myInput").trigger("focus");
   });
@@ -197,7 +172,7 @@ function openSidebar() {
   // document.getElementById("resto").style.display = "none";
   // document.getElementById("pie").style.display = "none";
   $("#mySidebar").show();
-  $("#mibar").hide();
+  //$("#mibar").hide();
   $("#myInput").trigger("focus");
 }
 
@@ -207,7 +182,7 @@ function closeSidebar() {
   // document.getElementById("resto").style.display = "block";
   // document.getElementById("pie").style.display = "block";
   $("#mySidebar").hide();
-  $("#mibar").show();
+  // $("#mibar").show();
   $("#ctracks").hide();
   $("#iiwin").hide();
 }
@@ -258,38 +233,10 @@ function continuo() {
 function getInfoPlaying() {
   sndsvr("obtener.php", null, function (response) {
     jdatos = JSON.parse(response);
+    w3.displayObject('marcas', jdatos);
+    w3.displayObject('tracks', jdatos);
+    w3.displayObject('datos_r', jdatos);
     nomFilePlaying = jdatos.name;
-    var slen = jdatos.caps.length;
-    var fin = jdatos.caps[slen - 1].fin;
-    var html_marcas = "";
-    var html_caps = "";
-    var j = 0;
-    for (let i = 0; i < slen; i++) {
-      ++j;
-      //html_caps += '<li>' + jdatos.caps[i].tit + '</li>';
-      html_caps +=
-        "<li><a id=c" +
-        j +
-        ' onclick="playc(' +
-        j +
-        ');">' +
-        j +
-        ": " +
-        jdatos.caps[i].tit +
-        "</a></li>";
-      var porc = (jdatos.caps[i].ini * 100) / fin;
-      html_marcas +=
-        '<span class="w3-text-blue" style="position: absolute; margin-left: -3px; left: ' +
-        porc +
-        '%; ">|</span>';
-    }
-    $("#marcas").html(html_marcas);
-    var html_name = "";
-    html_name +=
-      "<b><u>" + jdatos.artist + "</u><br>" + jdatos.album + "</b><br>";
-    $("#infoname").html(html_name);
-    $("#infostream").html(jdatos.info);
-    $("#tracks").html(html_caps);
   });
 }
 

@@ -1,27 +1,25 @@
 <?php
 include 'config.php';
 exec('rm '.$pt.'salida ; ls -1a '.$path.'/*.MKA | xargs -d "\n" -n 1 basename > '.$pt.'salida');
-$gestor = @fopen($pt.'salida', 'r');
-if ($gestor) {
+$fp = @fopen($pt.'salida', 'r');
+if ($fp) {
     $i=0;
-
-    $res->lista='<br><ul id="myUL" class="myUL">';
-    while (($bufer = fgets($gestor, 4096)) !== false) {
+    $res->lista=array();
+    while (($bufer = fgets($fp, 4096)) !== false) {
         $bufer_limpio=addslashes(trim($bufer));
+        $res->lista[$i]->id=$i;
+        $res->lista[$i]->nombre=$bufer_limpio;
         ++$i;
-        $res->lista.='<li class=w3-bar ontouchmove="touchmove(event,\''.$bufer_limpio.'\','.$i.');" >';
-        $res->lista.='<button id=b'.$i.' class="w3-bar-item w3-red" onclick="play(\''.$bufer_limpio.'\',1);">|&gt;</button>';
-        $res->lista.='<a class=w3-bar-item onclick="infoitem(\''.$bufer_limpio.'\');">'.$bufer.'</a></li>';
     }
-    $res->lista.='</ul>';
     $res->count=$i;
 
-    if (!feof($gestor)) {
+    if (!feof($fp)) {
         echo 'Error: fallo inesperado de fgets()\n';
     }
-    fclose($gestor);
+    fclose($fp);
     
-    echo json_encode($res);
+    $respuesta=json_encode($res);
+    echo $respuesta;
     //$res.lista
     //$res.count
 }
