@@ -30,20 +30,15 @@ function infoitem(nomfile) {
 }
 
 function sliderc_change() {
-  if (cdatos.playing) {
     desactiva_continuo();
     var valor = ($("#sliderc").val() * cdatos.fs) / 100;
     var params = { seconds: valor };
     sndsvr("seek.php", params, function () {
       activa_continuo();
     });
-  } else {
-    alert("Press play before");
-  }
 }
 
 function slidera_change() {
-  if (cdatos.playing) {
     desactiva_continuo();
     var p = 100 / $("#slidera").val();
     var s =
@@ -53,9 +48,6 @@ function slidera_change() {
     sndsvr("seek.php", params, function () {
       activa_continuo();
     });
-  } else {
-    alert("Press play before");
-  }
 }
 
 function btrack_click() {
@@ -68,43 +60,34 @@ function start_click() {
 }
 
 function prev_click() {
-  if (cdatos.playing) {
-    sndsvr("prev.php", null, null);
-  } else {
-    alert("Press play before");
-  }
+  sndsvr("prev.php", null, null);
 }
 
 function next_click() {
-  if (cdatos.playing) {
-    sndsvr("next.php", null, null);
-  } else {
-    alert("Press play before");
-  }
+  sndsvr("next.php", null, null);
 }
 
 function cargar_click() {
+  $("#cargar").hide();
+  $("#myUL").hide();
   sndsvr("cargar.php", null, function (response) {
     var jdatos = JSON.parse(response);
     w3.displayObject("cuenta", jdatos);
     w3.displayObject("myUL", jdatos);
     $("#myInput").val("");
     $("#myInput").trigger("focus");
+    $("#cargar").show();
+    $("#myUL").show();
   });
 }
 
 function pause_click() {
-  if (cdatos.playing) {
-    sndsvr("pause.php", null, null);
-  } else {
-    alert("Press play before");
-  }
+  sndsvr("pause.php", null, null);
 }
 
 function stop_click() {
   sndsvr("stop.php", null, null);
   $("#titcap").html("&nbsp;");
-  $("#start").addClass("blink_text");
   $("#slc").width("0%");
   $("#slc").html("0%");
   $("#sliderc").val(0);
@@ -193,11 +176,6 @@ function continuo() {
     cdatos = JSON.parse(response);
     if (cdatos != "nop") {
       if (nomFilePlaying != cdatos.name) getInfoPlaying();
-      if (!cdatos.playing) {
-        $("#start").addClass("blink_text");
-      } else {
-        $("#start").removeClass("blink_text");
-      }
       if (cdatos.pausa) {
         $("#pause").addClass("blink_text");
         $("#slc").removeClass("w3-light-blue");
@@ -272,9 +250,14 @@ function desactiva_continuo() {
 // **************************************
 // ************* Inicio *****************
 // **************************************
+// $(window).on("load", function () {
+//   console.log("Ha ocurrido window.load: ventana lista");
+// });
+
 $(function () {
+  //console.log("Ha ocurrido document.ready: documento listo");
   getInfoPlaying();
-  continuo();
+  // continuo();
   cargar_click();
   eventos();
   activa_continuo();

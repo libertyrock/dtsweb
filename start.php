@@ -11,7 +11,7 @@ if ($cap == 'null') {
     $posicion = '#' . $cap;
 }
 $file = $path . $name;
-$orden = 'mpv --input-ipc-server=/tmp/tubo --term-status-msg=\'${core-idle} ${time-pos} / ${duration} (${percent-pos}%)\n\' --no-msg-color --input-file=tubo --no-video --audio-device=alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "' . $file . '" --start=' . $posicion . ' 1> ' . $pt . 'out 2>&1 &';
+$orden = 'mpv --input-ipc-server=' . $pt . 'tubo --term-status-msg=\'${core-idle} ${time-pos} / ${duration} (${percent-pos}%)\n\' --no-msg-color --no-video --audio-device=alsa/iec958:CARD=DAC,DEV=0 --audio-spdif=ac3,dts "' . $file . '" --start=' . $posicion . ' 1> ' . $pt . 'out 2>&1 &';
 exec($orden);
 
 $orden = 'ffmpeg -i "' . $file . '" -f ffmetadata 2>&1';
@@ -19,7 +19,7 @@ $salida = shell_exec($orden);
 
 $patron = '/.*Chapter #0:(\d+): start (.*), end (.*)\n.*Metadata:\n.*title.*: (.*)/';
 preg_match_all($patron, $salida, $capitulos, PREG_SET_ORDER);
-$fv=$capitulos[count($capitulos)-1][3]; //end (.*) último capítulo
+$fv = $capitulos[count($capitulos) - 1][3]; //end (.*) último capítulo
 $patron = '/([^-]*) - (.*)\.MKA/';
 preg_match($patron, $name, $filename);
 
@@ -35,10 +35,10 @@ $res->info = $informacion[1];
 $i = 0;
 foreach ($capitulos as $val) {
     $res->caps[$i]->cap = $val[1] + 1;
-    $res->caps[$i]->ini = round($val[2]);
-    $res->caps[$i]->fin = round($val[3]);
+    $res->caps[$i]->ini = (float)($val[2]); //to float number
+    $res->caps[$i]->fin = (float)($val[3]); //to float number
     $res->caps[$i]->tit = $val[4];
-    $res->caps[$i]->por = round($val[2] * 100 / $fv);
+    $res->caps[$i]->por = (float)($val[2] * 100 / $fv); //to float number
     ++$i;
 }
 
