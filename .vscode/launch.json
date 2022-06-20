@@ -7,6 +7,13 @@
       "url": "http://localhost/${workspaceFolderBasename}"
     },
     {
+      "name": "Firefox",
+      "request": "launch",
+      "reAttach": true,
+      "type": "firefox",
+      "url": "http://localhost/${workspaceFolderBasename}"
+    },
+    {
       "name": "Php",
       "type": "php",
       "request": "launch",

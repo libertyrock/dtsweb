@@ -146,7 +146,7 @@ function myFunction() {
 function myInputProc() {
   $("#myInput").val("");
   myFunction();
-  $("#myInput").trigger("focus");
+  //$("#myInput").trigger("focus");
 }
 
 function openSidebar() {
@@ -156,7 +156,7 @@ function openSidebar() {
   // document.getElementById("pie").style.display = "none";
   $("#mySidebar").show();
   //$("#mibar").hide();
-  $("#myInput").trigger("focus");
+  //$("#myInput").trigger("focus");
 }
 
 function closeSidebar() {
@@ -227,7 +227,7 @@ function playc(capitulo) {
       activa_continuo();
     });
   } else {
-    alert("Press play before");
+    if(nomFilePlaying!=="") play(nomFilePlaying,capitulo);
   }
 }
 

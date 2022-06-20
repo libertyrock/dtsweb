@@ -34,11 +34,11 @@ $res->info = $informacion[1];
 
 $i = 0;
 foreach ($capitulos as $val) {
-    $res->caps[$i]->cap = $val[1] + 1;
-    $res->caps[$i]->ini = (float)($val[2]); //to float number
-    $res->caps[$i]->fin = (float)($val[3]); //to float number
-    $res->caps[$i]->tit = $val[4];
-    $res->caps[$i]->por = (float)($val[2] * 100 / $fv); //to float number
+    $res->caps[$i]->cap = $val[1] + 1; // int
+    $res->caps[$i]->ini = (float)($val[2]); // float
+    $res->caps[$i]->fin = (float)($val[3]); // float
+    $res->caps[$i]->tit = $val[4]; // string
+    $res->caps[$i]->por = (float)($val[2] * 100 / $fv); // float
     ++$i;
 }
 
