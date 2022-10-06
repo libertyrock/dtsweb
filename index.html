@@ -43,9 +43,9 @@
           <span class="w3-button w3-blue-gray" onclick="myInputProc();">&times;</span>
         </div>
       </div>
-      <div class="w3-container w3-gray" style="height: 75vh; overflow-y: auto">
+      <div class="w3-container w3-gray" style="height: 60vh; overflow-y: auto">
         <ul id="myUL" class="myUL">
-          <li w3-repeat="lista" class=w3-bar ontouchmove="touchmove(event,'{{nombre}}','{{id}}');">
+          <li w3-repeat="lista" class=w3-bar>
             <button id="b{{id}}" class="w3-bar-item w3-blue-gray" onclick="play('{{nombre}}',1);">|&gt;</button>
             <a class=w3-bar-item onclick="infoitem('{{nombre}}');">{{nombre}}</a>
           </li>
@@ -188,7 +188,7 @@
           &times;
         </span>
       </div>
-      <div class="w3-container w3-grey" style="height: 80vh; overflow-y: auto">
+      <div class="w3-container w3-grey" style="height: 65vh; overflow-y: auto">
         <ul id="tracks" class="myUL">
           <li w3-repeat="caps"><a id=c{{cap}} onclick="playc('{{cap}}');">{{cap}}: {{tit}}</a></li>
         </ul>
@@ -206,7 +206,7 @@
           &times;
         </span>
       </div>
-      <div id=iitracks class="w3-container w3-grey" style="height: 80vh; overflow-y: auto">
+      <div id=iitracks class="w3-container w3-grey" style="height: 65vh; overflow-y: auto">
         <b><u>{{artist}}</u></b><br />
         <b>{{album}}</b><br />
         <ul class="myUL">
