@@ -20,6 +20,16 @@ function eventos() {
 }
 
 // ### Event infoitem ###
+function poweroff() {
+  sndsvr("poweroff.php", null, null);
+  alert("apagando....");
+}
+
+function reboot() {
+  sndsvr("reboot.php", null, null);
+  alert("reiniciando....");
+}
+
 function infoitem(nomfile) {
   var params = { id: nomfile };
   sndsvr("infoitem.php", params, function (response) {

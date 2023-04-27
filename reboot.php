@@ -1,2 +1,3 @@
 <?php
-echo shell_exec("sudo /sbin/reboot");
+include 'config.php';
+exec('sudo systemctl reboot');
