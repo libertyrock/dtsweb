@@ -25,7 +25,7 @@
   <div id="mySidebar" class="w3-modal" style="display: none">
     <div class="w3-modal-content">
       <div class="w3-container w3-padding w3-blue-gray">
-        <span id="cuenta" class="w3-padding w3-large">Total: {{count}}</span>
+        <span id="cuenta" class="w3-padding w3-large">Total: <span id="cnum">{{count}}</span></span>
         <button id="cargar" class="w3-padding w3-large w3-blue-gray w3-display-topmiddle">
           Reload
         </button>
@@ -34,14 +34,10 @@
           &times;
         </span>
       </div>
-      <div id="buscar" class="w3-row w3-padding w3-gray">
-        <div class="w3-col s10">
-          <input class="myInput" type="search" id="myInput" onkeyup="myFunction()" placeholder="Buscar ..."
-            title="Type in a name" />
-        </div>
-        <div class="w3-col s2">
-          <span class="w3-button w3-blue-gray" onclick="myInputProc();">&times;</span>
-        </div>
+      <div id="buscar" class="w3-container w3-padding w3-gray">
+        <input class="myInput" style="width: 80%" type="search" id="myInput" onkeyup="myFunction()" placeholder="Buscar ..."
+          title="Type in a name" />
+        <span class="w3-button w3-blue-gray" style="position: absolute" onclick="myInputProc();">&times;</span>
       </div>
       <div class="w3-container w3-gray" style="height: 60vh; overflow-y: auto">
         <ul id="myUL" class="myUL">

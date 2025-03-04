@@ -1,3 +1,3 @@
 <?php
 include 'config.php';
-exec('inicio');
+exec('sudo inicio');

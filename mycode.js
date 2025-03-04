@@ -78,11 +78,13 @@ function next_click() {
 }
 
 function cargar_click() {
+  var jdatos = JSON.parse('{"count":0}');
+  w3.displayObject("cnum", jdatos);
   $("#cargar").hide();
   $("#myUL").hide();
   sndsvr("cargar.php", null, function (response) {
     var jdatos = JSON.parse(response);
-    w3.displayObject("cuenta", jdatos);
+    w3.displayObject("cnum", jdatos);
     w3.displayObject("myUL", jdatos);
     $("#myInput").val("");
     $("#myInput").trigger("focus");
