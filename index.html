@@ -26,13 +26,13 @@
     <div class="w3-modal-content">
       <div class="w3-container w3-padding w3-blue-gray">
         <span id="cuenta" class="w3-padding w3-large">Total: <span id="cnum">{{count}}</span></span>
-        <button id="cargar" class="w3-padding w3-large w3-blue-gray w3-display-topmiddle">
-          Recargar
-        </button>
-        <span class="w3-button w3-pale-blue w3-right"
+        <span class="w3-button w3-pale-blue w3-right" style="margin-right: 10px;"
           onclick="document.getElementById('mySidebar').style.display='none'">
           &times;
         </span>
+        <button id="cargar" class="w3-padding w3-large w3-blue-gray w3-right">
+          Recargar
+        </button>
       </div>
       <div id="buscar" class="w3-container w3-padding w3-gray">
         <input class="myInput" style="width: 80%" type="search" id="myInput" onkeyup="myFunction()" placeholder="Buscar ..."
