@@ -90,7 +90,7 @@
 
 /* Slider */
 input[type=range] {
-  -webkit-appearance: none;
+  appearance: none;
   opacity: 0;
 }
 

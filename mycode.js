@@ -78,7 +78,7 @@ function next_click() {
 }
 
 function cargar_click() {
-  var jdatos = JSON.parse('{"count":0}');
+  var jdatos = JSON.parse('{"count": "..."}');
   w3.displayObject("cnum", jdatos);
   $("#cargar").hide();
   $("#myUL").hide();
