@@ -4,14 +4,22 @@ exec('rm '.$pt.'salida ; ls -1a '.$path.'/*.MKA | xargs -d "\n" -n 1 basename > 
 $fp = @fopen($pt.'salida', 'r');
 if ($fp) {
     $i=0;
-    $res->lista=array();
+    //$res ??= new stdClass();
+    //$res->lista=array();
+    $res['lista'] = [];
     while (($bufer = fgets($fp, 4096)) !== false) {
         $bufer_limpio=addslashes(trim($bufer));
-        $res->lista[$i]->id=$i;
-        $res->lista[$i]->nombre=$bufer_limpio;
+        //$res->lista[$i] ??= new stdClass();
+        //$res->lista[$i]->id=$i;
+        //$res->lista[$i]->nombre=$bufer_limpio;
+        $res['lista'][$i] = [
+            'id'     => $i,
+            'nombre' => $bufer_limpio
+        ];
         ++$i;
     }
-    $res->count=$i;
+    //$res->count=$i;
+    $res['count'] = $i;
 
     if (!feof($fp)) {
         echo 'Error: fallo inesperado de fgets()\n';

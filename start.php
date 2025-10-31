@@ -26,6 +26,7 @@ preg_match($patron, $name, $filename);
 $patron = '/Stream #0:0.*: Audio: (.*)/';
 preg_match($patron, $salida, $informacion);
 
+$res ??= new stdClass();
 $res->name = $name;
 $res->artist = $filename[1];
 $res->album = $filename[2];
@@ -34,6 +35,7 @@ $res->info = $informacion[1];
 
 $i = 0;
 foreach ($capitulos as $val) {
+    $res->caps[$i] ??= new stdClass();
     $res->caps[$i]->cap = $val[1] + 1; // int
     $res->caps[$i]->ini = (float)($val[2]); // float
     $res->caps[$i]->fin = (float)($val[3]); // float
