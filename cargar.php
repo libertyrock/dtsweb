@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+
 exec('rm '.$pt.'salida ; ls -1a '.$path.'/*.MKA | xargs -d "\n" -n 1 basename > '.$pt.'salida');
 $fp = @fopen($pt.'salida', 'r');
 if ($fp) {
