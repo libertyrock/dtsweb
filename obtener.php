@@ -1,6 +1,10 @@
 <?php
 include 'config.php';
-echo file_get_contents($pt.'playing');
+if (!file_exists($pt.'playing')) {
+  echo "El fichero NO existe";
+} else {
+  echo file_get_contents($pt.'playing');
+}
 //$res.name
 //$res.artist
 //$res.album
