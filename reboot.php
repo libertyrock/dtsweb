@@ -1,3 +1,3 @@
 <?php
 include 'config.php';
-exec('sudo inicio');
+exec('sudo systemctl reboot');

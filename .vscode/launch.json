@@ -11,7 +11,7 @@
       "request": "launch",
       "reAttach": true,
       "type": "firefox",
-      "url": "http://localhost/${workspaceFolderBasename}"
+      "url": "http://localhost:39763/${workspaceFolderBasename}"
     },
     {
       "name": "Php",
