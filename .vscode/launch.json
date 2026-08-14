@@ -1,17 +1,13 @@
 {
   "configurations": [
     {
-      "name": "Chrome",
-      "request": "launch",
-      "type": "chrome",
-      "url": "http://localhost/${workspaceFolderBasename}"
-    },
-    {
-      "name": "Firefox",
+      "type": "firefox",
       "request": "launch",
       "reAttach": true,
-      "type": "firefox",
-      "url": "http://localhost:39763/${workspaceFolderBasename}"
+      "name": "Launch localhost",
+      "url": "http://localhost:39763/${workspaceFolderBasename}/${relativeFile}",
+      "webRoot": "${workspaceFolder}",
+      "firefoxArgs": ["-width", "400", "-height", "800"]
     },
     {
       "name": "Php",
