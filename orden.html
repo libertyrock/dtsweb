@@ -57,6 +57,15 @@
             background-color: #17e600;
         }
 
+        .btn-wol {
+            background-color: #002ae6;
+            color: white;
+        }
+
+        .btn-wol:hover {
+            background-color: #002ae6;
+        }
+
     </style>
 </head>
 
@@ -74,6 +83,16 @@
 
                 <p class="w3-text-gray">Apaga el servidor</p>
                 <button class="btn btn-off" onclick="ejecutar('poweroff.php')">Apagar</button>
+
+                <p class="w3-text-gray">Inicia el servidor cubipc</p>
+                <button class="btn btn-wol" onclick="ejecutar('wol_cubipc.php')">wol cubipc</button>
+
+                <p class="w3-text-gray">Inicia el servidor newpc</p>
+                <button class="btn btn-wol" onclick="ejecutar('wol_newpc.php')">wol newpc</button>
+
+                <p class="w3-text-gray">Inicia el servidor wolpc</p>
+                <button class="btn btn-wol" onclick="ejecutar('wol_wolpc.php')">wol wolpc</button>
+
             </div>
         </div>
 
