@@ -48,6 +48,15 @@
             background-color: #e68900;
         }
 
+        .btn-refresca {
+            background-color: #17e600;
+            color: white;
+        }
+
+        .btn-refresca:hover {
+            background-color: #17e600;
+        }
+
     </style>
 </head>
 
@@ -57,6 +66,9 @@
 
         <div class="button-container">
             <div class="">
+                <p class="w3-text-gray">Refresca el servidor</p>
+                <button class="btn btn-refresca" onclick="ejecutar('refresca.php')">Refrescar</button>
+
                 <p class="w3-text-gray">Reinicia el servidor</p>
                 <button class="btn btn-reboot" onclick="ejecutar('reboot.php')">Reiniciar</button>
 
